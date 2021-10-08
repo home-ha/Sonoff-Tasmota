@@ -1,286 +1,207 @@
-<img src="/tools/logo/TASMOTA_FullLogo_Vector.svg" alt="Logo" align="right" height="76"/>
+<img src="https://github.com/arendst/Tasmota/blob/master/tools/logo/TASMOTA_FullLogo_Vector.svg" alt="Logo" align="right" height="76"/>
 
 # RELEASE NOTES
 
 ## Migration Information
-See [wiki migration path](https://github.com/arendst/Sonoff-Tasmota/wiki/Upgrade#migration-path) for instructions how to migrate to a major version. Pay attention to the following version breaks due to dynamic settings updates:
+
+**This version removes support for direct migration from versions before v8.1.0 (Doris)**
+
+See [migration path](https://tasmota.github.io/docs/Upgrading#migration-path) for instructions how to migrate to a major version. Pay attention to the following version breaks due to dynamic settings updates:
 
 1. Migrate to **Sonoff-Tasmota 3.9.x**
 2. Migrate to **Sonoff-Tasmota 4.x**
 3. Migrate to **Sonoff-Tasmota 5.14**
-4. Migrate to **Sonoff-Tasmota 6.x**
+4. Migrate to **Sonoff-Tasmota 6.7.1** (http://ota.tasmota.com/tasmota/release-6.7.1/)
+5. Migrate to **Tasmota 7.2.0** (http://ota.tasmota.com/tasmota/release-7.2.0/)
 
-## Core version 2.3.0 vs 2.4.2
-This release is based on ESP8266/Arduino library core 2.3.0 (again) as some people encountered wifi related issues on core 2.4.2. For others core 2.4.2 is working just fine. Both version are available from http://thehackbox.org/tasmota/release/
+--- Major change in parameter storage layout ---
 
-## Change in default initial configuration tool
-Firmware binary **sonoff-classic.bin** supports **WifiManager, Wps and SmartConfig** for initial configuration. The default tool is **Wps**.
+6. Migrate to **Tasmota 8.5.1** (http://ota.tasmota.com/tasmota/release-8.5.1/)
 
-To save memory space all other binaries support **WifiManager only**.
+--- Major change in internal GPIO function representation ---
 
-## Supported Modules
-The following hardware modules are supported.
+7. Migrate to **Tasmota 9.1** (http://ota.tasmota.com/tasmota/release-9.1.0/)
 
-Module            | Description
-------------------|-----------------------
-01 Sonoff Basic   | Sonoff Basic Wifi Smart Switch
-02 Sonoff RF      | Sonoff RF Wifi Smart Switch with RF (434MHz) receiver
-03 Sonoff SV      | Sonoff SV Safe Voltage Wifi Smart Switch
-04 Sonoff TH      | Sonoff TH10/TH16 Wifi Smart Switch with Sensor connection
-05 Sonoff Dual    | Sonoff Dual Wifi Smart Switch
-06 Sonoff Pow     | Sonoff Pow Wifi Smart Switch with Energy Monitoring
-07 Sonoff 4CH     | Sonoff 4CH 4-gang Wifi Smart Switch
-08 Sonoff S2X     | Sonoff S20/S26 Wifi Smart Socket
-09 Slampher       | Sonoff Slampher Wifi Smart Light Bulb Socket with RF (434MHz) receiver
-10 Sonoff Touch   | Sonoff Touch Wifi Light Switch
-11 Sonoff LED     | Sonoff Led Wifi Led Pack (Retired)
-12 1 Channel      | 1 Channel Inching/Self Locking Wifi Switch 5V/12V
-13 4 Channel      | 4 Channel Inching/Self Locking Wifi Switch (Retired)
-14 Motor C/AC     | Motor Clockwise/Antoclockwise Wifi Switch (Retired)
-15 ElectroDragon  | Electrodragon Wifi IoT Board
-16 EXS Relay(s)   | Electronic Experience Store 1 or 2-gang Wifi Module
-17 WiOn           | WiOn Wifi Smart Socket
-18 Generic        | Any ESP8266/ESP8285 device like WeMos and NodeMCU
-19 Sonoff Dev     | Sonoff Dev Wifi Development Board
-20 H801           | H801 Wifi RGBWW Led Controller
-21 Sonoff SC      | Sonoff SC Wifi Environmental Monitor
-22 Sonoff BN-SZ   | Sonoff BN-SZ01 Wifi Ceiling Led (Retired)
-23 Sonoff 4CH Pro | Sonoff 4CH Pro 4-gang Wifi Smart Switch
-24 Huafan SS      | HuaFan Wifi Smart Socket
-25 Sonoff Bridge  | Sonoff RF (434MHz) transceive to Wifi Bridge
-26 Sonoff B1      | Sonoff B1 Wifi RGBWW Led Bulb
-27 AiLight        | Ai-Thinker RGBW Led Bulb
-28 Sonoff T1 1CH  | Sonoff T1 1-gang Wifi Light Switch
-29 Sonoff T1 2CH  | Sonoff T1 2-gang Wifi Light Switch
-30 Sonoff T1 3CH  | Sonoff T1 3-gang Wifi Light Switch
-31 Supla Espablo  | 2-gang Wifi Module
-32 Witty Cloud    | Witty Cloud ESP8266 Wifi Development Board
-33 Yunshan Relay  | ESP8266 Wifi Network Relay Module
-34 MagicHome      | MagicHome, Flux-light and some Arilux LC10 RGB(W) Led Controller
-35 Luani HVIO     | Luani ESP8266 Wifi I/O Module
-36 KMC 70011      | KMC Wifi Smart Socket with Energy Monitoring
-37 Arilux LC01    | Arilux AL-LC01 RGB Led Controller
-38 Arilux LC11    | Arilux AL-LC11 RGBWW Led Controller
-39 Sonoff Dual R2 | Sonoff Dual R2 Wifi Smart Switch
-40 Arilux LC06    | Arilux AL-LC06 RGB(WW) Led Controller
-41 Sonoff S31     | Sonoff S31 Wifi Smart Socket with Energy Monitoring
-42 Zengge WF017   | Zengge WF017 Wifi RGB(W) Led Controller
-43 Sonoff Pow R2  | Sonoff Pow R2 Wifi Smart Switch with Energy Monitoring
-44 Sonoff iFan02  | Sonoff iFan02 Wifi Smart Ceiling Fan with Light
-45 BlitzWolf SHP  | BlitzWolf BW-SHP2, BW-SHP6, HomeCube SP1, Gosund SP111, Teckin SP22 Wifi Smart Switch with Energy Monitoring
-46 Shelly 1       | Shelly 1 Open Source Wifi Relay Module
-47 Shelly 2       | Shelly 2 Wifi 2-gang Relay Module with Energy Monitoring
-48 Xiaomi Philips | Xiaomi Philips Wifi WW Led Bulb
-49 Neo Coolcam    | Neo Coolcam Wifi Smart Socket
-50 ESP Switch     | ESP Switch 4-gang Wifi Switch with Leds
-51 OBI Socket     | OBI Wifi Smart Socket
-52 Teckin         | Teckin SP22 Wifi Smart Switch with Energy Monitoring
-53 AplicWDP303075 | Aplic WDP 303075 CSL Wifi Smart Switch with Energy Monitoring
-54 Tuya Dimmer    | MIUO (and other Tuya based) Wifi Dimmer for Incandescent Lights and Led
-55 Gosund SP1 v23 | Gosund SP1 v2.3 Wifi Smart Switch with Energy Monitoring
-56 ARMTR Dimmer   | ARMtronix Wifi dimmer for Incandescent Lights and Led
-57 SK03 Outdoor   | SK03 Outdoor Wifi Smart Switch with Energy Monitoring
-58 PS-16-DZ       | PS-16-DZ  Wifi dimmer for Incandescent Lights and Led
-59 Teckin US      | Teckin SP20 and ZooZee SA102 Wifi Smart Switch with Energy Monitoring
-60 Manzoku strip  | Manzoku Wifi Smart Power Strip with four Relays
-61 OBI Socket 2   | OBI 2 Wifi Smart Socket
-62 YTF IR Bridge  | YTF Infra Red Wifi Bridge
-63 Digoo DG-SP202 | Digoo DG-SP202 Dual Wifi Smart Switch with Energy Monitoring
-64 KA10           | Smanergy KA10 Wifi Smart Wall Switch with Energy Monitoring
-65 Luminea ZX2820 | Luminea ZX2820 Wifi Smart Switch with Energy Monitoring
-66 Mi Desk Lamp   | Mi Desk Lamp with rotary switch and Wifi
-67 SP10           | Tuya SP10 Wifi Smart Switch with Energy Monitoring
-68 WAGA CHCZ02MB  | WAGA life CHCZ02MB Wifi Smart Switch with Energy Monitoring
-69 SYF05          | Sunyesmart SYF05 RGBWW Wifi Led Bulb
+While fallback or downgrading is common practice it was never supported due to Settings additions or changes in newer releases. Starting with release **v9.1.0 Imogen** the internal GPIO function representation has changed in such a way that fallback is only possible to the latest GPIO configuration before installing **v9.1.0**.
+
+## Supported Core versions
+
+This release will be supported from ESP8266/Arduino library Core version **2.7.4.9** due to reported security and stability issues on previous Core version. This will also support gzipped binaries.
+
+Support of Core versions before 2.7.1 has been removed.
+
+## Support of TLS
+
+In addition to TLS using fingerprints now also user supplied CA certs, AWS IoT and Azure IoT is supported. Read [full documentation](https://tasmota.github.io/docs/AWS-IoT)
+
+## Initial configuration tools
+
+For initial configuration this release supports Webserver based **WifiManager** or **Serial** based command interface only. Support for **WPS** and **SmartConfig** has been removed.
+
+## Initial installation
+
+Easy initial installation of Tasmota can be performed using the [Tasmota WebInstaller](https://arendst.github.io/Tasmota-firmware/).
 
 ## Provided Binary Downloads
-The following binary downloads have been compiled with ESP8266/Arduino library core version **2.3.0**.
 
-- **sonoff.bin** = The Sonoff version without Wps and SmartConfig configuration but adds more sensors. **RECOMMENDED RELEASE BINARY**
-- **sonoff-basic.bin** = The Basic version without Wps and SmartConfig configuration and most sensors.
-- **sonoff-classic.bin** = The Classic version allows initial installation using either WifiManager, Wps or SmartConfig.
-- **sonoff-BG.bin** to **sonoff-TW.bin** = The Sonoff version without Wps and SmartConfig configuration in different languages.
-- **sonoff-knx.bin** = The Knx version without Wps and SmartConfig configuration and some other features but adds KNX support.
-- **sonoff-sensors.bin** = The Sensors version without Wps and SmartConfig configuration but adds even more useful sensors.
-- **sonoff-display.bin** = The Display version without Wps and SmartConfig configuration and Energy Monitoring but adds display support.
-- **sonoff-minimal.bin** = The Minimal version allows intermediate OTA uploads to support larger versions and does NOT change any persistent parameter. This version **should NOT be used for initial installation**.
+### ESP8266 or ESP8285 based
+The following binary downloads have been compiled with ESP8266/Arduino library core version **2.7.4.9**.
 
-Core version **2.4.2** binaries can be found at http://thehackbox.org/tasmota/release/020402/
+- **tasmota.bin** = The Tasmota version with most drivers for 1M+ flash. **RECOMMENDED RELEASE BINARY**
+- **tasmota-AF.bin** to **tasmota-VN.bin** = The Tasmota version in different languages for 1M+ flash.
+- **tasmota-lite.bin** = The Lite version without most drivers and sensors for 1M+ flash.
+- **tasmota-knx.bin** = The Knx version without some features but adds KNX support for 1M+ flash.
+- **tasmota-sensors.bin** = The Sensors version adds more useful sensors for 1M+ flash.
+- **tasmota-ir.bin** = The InfraRed Receiver and transmitter version allowing all available protocols provided by library IRremoteESP8266 but without most other features for 1M+ flash.
+- **tasmota-display.bin** = The Display version without Energy Monitoring but adds display support for 1M+ flash.
+- **tasmota-zbbridge.bin** = The dedicated Sonoff Zigbee Bridge version for 2M+ flash.
+- **tasmota-zigbee.bin** = The dedicated cc25xx Zigbee Bridge version for 4M+ flash.
 
-## Available Features and Sensors
+Above binaries are also available as gzipped version allowing faster uploads.
 
-| Feature or Sensor     | minimal | basic | classic | sonoff | knx  | sensors | display | Remarks
-|-----------------------|---------|-------|---------|--------|------|---------|---------|--------
-| MY_LANGUAGE en-GB     | x | x | x | x | x | x | x |
-| USE_WPS               | - | - | x | - | - | - | - | WPS
-| USE_SMARTCONFIG       | - | - | x | - | - | - | - | SmartConfig
-| USE_ARDUINO_OTA       | - | - | - | - | - | - | - |
-| USE_DOMOTICZ          | - | - | x | x | x | x | - |
-| USE_HOME_ASSISTANT    | - | - | - | x | x | x | - |
-| USE_MQTT_TLS          | - | - | - | - | - | - | - |
-| USE_KNX               | - | - | - | - | x | - | - |
-| USE_WEBSERVER         | x | x | x | x | x | x | x | WifiManager
-| USE_EMULATION         | - | x | x | x | - | x | - |
-| USE_DISCOVERY         | - | - | x | x | x | x | x |
-| WEBSERVER_ADVERTISE   | - | - | x | x | x | x | x |
-| MQTT_HOST_DISCOVERY   | - | - | x | x | x | x | x |
-| USE_TIMERS            | - | x | - | x | x | x | x |
-| USE_TIMERS_WEB        | - | x | - | x | x | x | x |
-| USE_SUNRISE           | - | x | - | x | x | x | x |
-| USE_RULES             | - | x | - | x | x | x | x |
-| USE_EXPRESSION        | - | - | - | - | - | - | - |
-|                       |   |   |   |   |   |   |   |
-| USE_ADC_VCC           | x | x | x | x | x | - | x |
-| USE_DS18B20           | - | - | - | - | - | - | - | Single sensor
-| USE_DS18x20           | - | - | x | x | x | x | x | Multiple sensors
-| USE_DS18x20_LEGACY    | - | - | - | - | - | - | - | Multiple sensors
-|                       |   |   |   |   |   |   |   |
-| Feature or Sensor     | minimal | basic | classic | sonoff | knx  | sensors | display | Remarks
-| USE_I2C               | - | - | - | x | x | x | x |
-| USE_SHT               | - | - | - | x | x | x | x |
-| USE_HTU               | - | - | - | x | x | x | x |
-| USE_BMP               | - | - | - | x | x | x | x |
-| USE_BME680            | - | - | - | - | - | x | - |
-| USE_BH1750            | - | - | - | x | x | x | x |
-| USE_VEML6070          | - | - | - | - | - | x | - |
-| USE_ADS1115           | - | - | - | - | - | x | - |
-| USE_ADS1115_I2CDEV    | - | - | - | - | - | - | - |
-| USE_INA219            | - | - | - | - | - | x | - |
-| USE_SHT3X             | - | - | - | x | x | x | x |
-| USE_TSL2561           | - | - | - | - | - | x | - |
-| USE_MGS               | - | - | - | - | - | x | - |
-| USE_SGP30             | - | - | - | x | x | x | x |
-| USE_SI1145            | - | - | - | - | - | - | - |
-| USE_LM75AD            | - | - | - | x | x | x | x |
-| USE_APDS9960          | - | - | - | - | - | - | - |
-| USE_MCP230xx          | - | - | - | - | - | - | - |
-| USE_PCA9685           | - | - | - | - | - | - | - |
-| USE_MPR121            | - | - | - | - | - | - | - |
-| USE_CCS811            | - | - | - | - | - | - | - |
-| USE_MPU6050           | - | - | - | - | - | - | - |
-| USE_DS3231            | - | - | - | - | - | - | - |
-| USE_MGC3130           | - | - | - | - | - | - | - |
-| USE_MAX44009          | - | - | - | - | - | - | - |
-| USE_SCD30             | - | - | - | - | - | x | - |
-|                       |   |   |   |   |   |   |   |
-| Feature or Sensor     | minimal | basic | classic | sonoff | knx  | sensors | display | Remarks
-| USE_SPI               | - | - | - | - | - | - | x |
-| USE_MHZ19             | - | - | - | x | x | x | x |
-| USE_SENSEAIR          | - | - | - | x | x | x | x |
-| USE_PMS5003           | - | - | - | x | x | x | x |
-| USE_NOVA_SDS          | - | - | - | x | x | x | x |
-| USE_ENERGY_SENSOR     | - | x | x | x | x | x | - |
-| USE_PZEM004T          | - | - | - | x | x | x | - |
-| USE_PZEM_AC           | - | - | - | x | x | x | - |
-| USE_PZEM_DC           | - | - | - | x | x | x | - |
-| USE_MCP39F501         | - | x | - | x | x | x | - |
-| USE_SERIAL_BRIDGE     | - | - | - | x | x | x | x |
-| USE_SDM120            | - | - | - | - | - | x | - |
-| USE_SDM630            | - | - | - | - | - | x | - |
-| USE_MP3_PLAYER        | - | - | - | - | - | x | - |
-| USE_TUYA_DIMMER       | - | x | - | x | x | x | x |
-| USE_ARMTRONIX_DIMMERS | - | x | - | x | x | x | x |
-| USE_PS_16_DZ          | - | x | - | x | x | x | x |
-| USE_AZ7798            | - | - | - | - | - | - | - |
-| USE_PN532_HSU         | - | - | - | - | - | x | - |
-| USE_IR_REMOTE         | - | - | - | x | x | x | x |
-| USE_IR_HVAC           | - | - | - | - | - | x | - |
-| USE_IR_RECEIVE        | - | - | - | x | x | x | x |
-| USE_WS2812            | - | - | x | x | x | x | x |
-| USE_WS2812_DMA        | - | - | - | - | - | - | - |
-| USE_ARILUX_RF         | - | - | - | x | x | x | - |
-| USE_SR04              | - | - | - | x | x | x | x |
-| USE_TM1638            | - | - | - | - | - | x | - |
-| USE_HX711             | - | - | - | x | x | x | x |
-| USE_RF_FLASH          | - | - | - | x | x | x | - |
-| USE_TX20_WIND_SENSOR  | - | - | - | x | x | x | x |
-| USE_RC_SWITCH         | - | - | - | x | x | x | x |
-| USE_RF_SENSOR         | - | - | - | - | - | x | - | AlectoV2 only
-| USE_SM16716           | - | x | x | x | x | x | x |
-| USE_HRE               | - | - | - | - | - | x | - |
-| USE_DISPLAY           | - | - | - | - | - | - | x |
-| USE_DISPLAY_LCD       | - | - | - | - | - | - | x |
-| USE_DISPLAY_SSD1306   | - | - | - | - | - | - | x |
-| USE_DISPLAY_MATRIX    | - | - | - | - | - | - | x |
-| USE_DISPLAY_ILI9341   | - | - | - | - | - | - | x |
-| USE_DISPLAY_EPAPER_29 | - | - | - | - | - | - | x | Disabled for core 2.3.0
+Latest released binaries can be downloaded from
+- https://github.com/arendst/Tasmota-firmware/tree/main/release-firmware
+- http://ota.tasmota.com/tasmota/release
 
-## Changelog
-Version 6.5.0 20190319
- * Remove commands SetOption14 and SetOption63 as it has been superseded by command Interlock
- * Remove command SetOption35 0-255 for mDNS start-up delay (#4793)
- * Remove support for MQTT_LIBRARY_TYPE, MQTT_ARDUINOMQTT and MQTT_TASMOTAMQTT (#5474)
- * Change webserver content handling from single String to small Chunks increasing RAM
- * Change code use of boolean to bool and byte to uint8_t
- * Change code uint8_t flags to bool flags
- * Change sonoff_template.h layout regarding optional module flags like ADC0
- * Change sonoff_template.h module lay-out by removing non-configurable GPIOs
- * Change button driver making it modular
- * Change switch driver making it modular and introduce input filter (#4665, #4724)
- * Change switch input detection by optimizing switch debounce (#4724)
- * Change web authentication (#4865)
- * Change image name BE_MINIMAL to FIRMWARE_MINIMAL and USE_xyz to FIRMWARE_xyz (#5106)
- * Change GUI weblog from XML to plain text solving possible empty screens (#5154)
- * Fix most compiler warnings
- * Fix Display exception 28 when JSON value is NULL received
- * Fix epaper driver (#4785)
- * Fix HAss Sensor Discovery Software Watchdog restart (#4831, #4988)
- * Fix allowable MAX_RULE_VARS to 16 (#4933)
- * Fix mDNS addService (#4938, #4951)
- * Fix HAss discovery of MHZ19(B) sensors (#4992)
- * Fix some exceptions and watchdogs due to lack of stack space (#5215)
- * Fix GUI wifi password acception starting with asteriks (*) (#5231, #5242)
- * Fix command WebSend intermittent results (#5273, #5304)
- * Fix additional characters in fallbacktopic, hostname and mqttclient on core 2.5.0 (#5359, #5417)
- * Fix Energy TotalStartTime when commands EnergyReset0 and/or EnergyReset3 used (#5373)
- * Fix DS18S20 temperature calculation (#5375)
- * Fix float calculations in range from 0 to -1 (#5386)
- * Fix exception on GUI Configure Logging and Configure Other (#5424)
- * Add commands PowerCal, VoltageCal and CurrentCal for HLW8012, HJL01 and BL0937 based energy sensors
- * Add command SerialDelimiter 128 to filter reception of only characters between ASCII 32 and 127 (#5131)
- * Add command SSerialSend5 \<hexdata\> to SerialBridge
- * Add command Interlock 0 / 1 / 1,2 3,4 .. to control interlock ON/OFF and add up to 8 relays in 1 to 4 interlock groups (#4910, #5014)
- * Add command Template 255 to copy module configuration over to current active template and store as user template named Merged (#5371)
- * Add command WifiConfig 7 to allow reset of device in AP mode without admin password (#5297)
- * Add command SetOption36 to control boot loop default restoration (#4645, #5063)
- * Add command SetOption37 for RGBCW color mapping (#5326)
- * Add command SetOption55 0/1 and define MDNS_ENABLE to disable/enable mDNS (#4793, #4923)
- * Add command SetOption62 0/1 to disable retain on Button or Switch hold messages (#5299)
- * Add support for Smanergy KA10 Smart Wall Socket with Energy monitoring
- * Add support for commands in sensor drivers
- * Add support for MAX31855 K-Type thermocouple sensor using softSPI (#4764)
- * Add support for Near Field Communication (NFC) controller PN532 using Serial (#4791, #5162)
- * Add support for OBI Power Socket 2 (#4829)
- * Add support for YTF IR Bridge (#4855)
- * Add support for Mi LED Desk Lamp with rotary switch (#4887)
- * Add support for Digoo DG-SP202 Smart Socket with Energy monitoring (#4891)
- * Add support for MAX44009 Ambient Light sensor (#4907)
- * Add support for inverted buttons and inverted buttons without pullup (#4914)
- * Add support for Luminea ZX2820 Smart Socket with Energy monitoring (#4921)
- * Add support for multiple ADS1115 I2C devices (#5083)
- * Add support for online template change using command Template or GUI Configure Other (#5177)
- * Add support for Korean language translations (#5344)
- * Add support for sensor SCD30 (#5434)
- * Add parameter CFG_HOLDER to status 1 message (#5206)
- * Add SetOption32 until SetOption49 diagnostic information to Status 3 report as replacement for second property value in SetOption property name
- * Add Resolution property to Status 3 report providing previous SetOption second value property
- * Add property MqttCount to status 6 message representing number of Mqtt re-connections
- * Add property LinkCount to state and status 11 message representing number of Wifi Link re-connections
- * Add property Downtime to state and status 11 message representing the duration of wifi connection loss
- * Add variable %timestamp% to rules (#4749)
- * Add rule support for "==", "!=" ">=" and "<=" (#5122)
- * Add rule expression enabled by define USE_EXPRESSION in my_user_config.h (#5210)
- * Add Power status functionality to LED2 when configured leaving LED1 for Link status indication
- * Add user configuration of HLW8012 and HJL-01/BL0937 Energy Monitoring as used in Sonoff Pow and many Tuya based devices
- * Add user configuration of MCP39F501 Energy Monitoring as used in Shelly2
- * Add online template configuration using both commands and Configure Template menu option in GUI
- * Add (S)SerialSend3 escape sequence \x to allow hexadecimal byte value (#3560, #4947)
- * Add define DS18B20_INTERNAL_PULLUP to select internal input pullup when only one DS18B20 sensor is connected eliminating external resistor (#4738)
- * Add button control when no relay configured (#4682)
- * Add startup delay of 4 seconds to button control (#4829)
- * Add core version conditional compile options to provided PWM files (#4917)
- * Add resiliency to saved Settings (#5065)
- * Add MHZ19 Temperature as Domoticz Temperature selection (#5128)
- * Add HAss status sensor (#5139)
- * Add status message to former declined group commands (#5145)
- * Add 0x to IRRemote (SetOption29) and RCSwitch (SetOption28) received hexadecimal data (#5431)
+Historical binaries can be downloaded from
+- http://ota.tasmota.com/tasmota/release-9.5.0
+
+The latter links can be used for OTA upgrades too like ``OtaUrl http://ota.tasmota.com/tasmota/release/tasmota.bin.gz``
+
+### ESP32 based
+The following binary downloads have been compiled with ESP32/Arduino library core version **1.0.7.3**.
+
+- **tasmota32.bin** = The Tasmota version with most drivers including additional sensors and KNX for 4M+ flash.  **RECOMMENDED RELEASE BINARY**
+- **tasmota32_8M.bin** = The Tasmota version with most drivers including additional sensors and KNX for 8M+ flash.
+- **tasmota32_16M.bin** = The Tasmota version with most drivers including additional sensors and KNX for 16M+ flash.
+- **tasmota32solo1.bin** = The Tasmota version with most drivers including additional sensors and KNX for single core ESP32 and 4M+ flash.
+- **tasmota32-AF.bin** to **tasmota32-VN.bin** = The Tasmota version in different languages for 4M+ flash.
+- **tasmota32-ir.bin** = The InfraRed Receiver and transmitter version allowing all available protocols provided by library IRremoteESP8266 but without most other features for 4M+ flash.
+- **tasmota32-display.bin** = The Display version without Energy Monitoring but adds display support for 4M+ flash.
+- **tasmota32-webcam.bin** = The Webcam version adds webcam support for 4M+ flash.
+- **tasmota32-bluetooth.bin** = The Bluetooth version adds BLE support for 4M+ flash.
+- **tasmota32-odroidgo.bin** = The Odroid-Go version is specifically tailored to Odroid_go hardware for 8M+ flash.
+- **tasmota32-core2.bin** = The Core2 version is specifically tailored to M5Stack Core2 hardware for 8M+ flash.
+
+Latest released binaries can be downloaded from
+- https://github.com/arendst/Tasmota-firmware/tree/main/release-firmware
+- http://ota.tasmota.com/tasmota32/release
+
+Historical binaries can be downloaded from
+- http://ota.tasmota.com/tasmota32/release-9.5.0
+
+The latter links can be used for OTA upgrades too like ``OtaUrl http://ota.tasmota.com/tasmota32/release/tasmota32.bin``
+
+## Additional information
+
+[List](MODULES.md) of embedded modules.
+
+[Complete list](BUILDS.md) of available feature and sensors.
+
+## Changelog v9.5.0.9
+### Added
+- Release of [Tasmota WebInstaller](https://arendst.github.io/Tasmota-firmware/)
+- Command ``SetOption2 1`` to enable display of global temperature/humidity/pressure info to JSON sensor message
+- Command ``SetOption127 1`` to force Wi-Fi in no-sleep mode even if ``Sleep 0`` is not enabled
+- Command ``SetOption128 0|1`` web referer check disabling HTTP API commands if set to 0. Default set to 1 for backward compatibility [#12828](https://github.com/arendst/Tasmota/issues/12828)
+- Command ``SetOption129 1`` to enable split total energy results [#13030](https://github.com/arendst/Tasmota/issues/13030)
+- Command ``SetSensor1..127 0|1`` to globally disable individual sensor driver
+- Command ``Subscribe2 ...`` to subscribe to a MQTT topic without appended "/#" [#12858](https://github.com/arendst/Tasmota/issues/12858)
+- Command ``WebGetConfig <url>`` if ``#define USE_WEBGETCONFIG`` is enabled to restore/init configuration from external webserver [#13034](https://github.com/arendst/Tasmota/issues/13034)
+- Command ``WebQuery <url> GET|POST|PUT|PATCH [<headers>] <body>`` to extent HTTP requests [#13209](https://github.com/arendst/Tasmota/issues/13209)
+- Commands ``EnergyTotal<phase>``, ``EnergyToday<phase>`` and ``EnergyYesterday<phase>`` to (re)set energy values
+- Commands ``EnergyUsage`` and ``EnergyExport`` to (re)set energy usage and export values
+- Optional IP filter to command ``TCPStart`` [#12806](https://github.com/arendst/Tasmota/issues/12806)
+- Neopool commands ``NPPHRes``, ``NPCLRes`` and ``NPIonRes`` [#12813](https://github.com/arendst/Tasmota/issues/12813)
+- Support for second DNS server
+- Support for influxdb using ``#define USE_INFLUXDB`` and several ``Ifx`` commands
+- Support for AM2320 Temperature and Humidity Sensor by Lars Wessels [#12485](https://github.com/arendst/Tasmota/issues/12485)
+- Support for Technoline WS2300-15 Anemometer [#12573](https://github.com/arendst/Tasmota/issues/12573)
+- Support for Telaire T6700 Series CO2 sensor by Alexander Savchenko [#12618](https://github.com/arendst/Tasmota/issues/12618)
+- Support for CAN bus and Freedom Won Battery Management System by Marius Bezuidenhout [#12651](https://github.com/arendst/Tasmota/issues/12651)
+- Support for IEM3155 Wattmeter [#12940](https://github.com/arendst/Tasmota/issues/12940)
+- Support for Hydreon RG-15 Solid State Rain sensor [#12974](https://github.com/arendst/Tasmota/issues/12974)
+- Support for IKEA VINDRIKTNING particle concentration sensor [#12976](https://github.com/arendst/Tasmota/issues/12976)
+- Support for Sensirion SCD40/SCD41 CO2 sensor [#13139](https://github.com/arendst/Tasmota/issues/13139)
+- Support for BL0939 energy monitor as used in ESP32 based Sonoff Dual R3 V2 Pow [#13195](https://github.com/arendst/Tasmota/issues/13195)
+- Support for BL0942 energy monitor [#13259](https://github.com/arendst/Tasmota/issues/13259)
+- Initial support for Tasmota Mesh (TasMesh) providing node/broker communication using ESP-NOW [#11939](https://github.com/arendst/Tasmota/issues/11939)
+- Initial support for Wi-Fi extender [#12784](https://github.com/arendst/Tasmota/issues/12784)
+- Rule event support as JSON payload [#12496](https://github.com/arendst/Tasmota/issues/12496)
+- MQTT minimum password length restriction in GUI [#12553](https://github.com/arendst/Tasmota/issues/12553)
+- ESP32 Berry partition manager [#12465](https://github.com/arendst/Tasmota/issues/12465)
+- ESP32 Berry class ``webclient`` for HTTP/HTTPS requests
+- ESP32 Berry support for I2S audio mp3 playback
+- ESP32 Berry support for vararg
+- ESP32 Berry support for Curve 25519 EC crypto
+- ESP32 Berry support for ESP32/ESP32S2 DAC gpio
+- ESP32 Berry support for Serial
+- ESP32 Berry print stack trace when exception, more detailed with line numbers if `#define USE_BERRY_DEBUG`
+- ESP32 support for (Yeelight) Mi Desk Pro using binary tasmota32solo1.bin
+- ESP32-S2 support for GPIOs
+- ESP32 add GPIO 6/7/8/11 to template and remove GPIO 28-31 (remapping so backwards compatible)
+- ESP32 crash recorder ``Status 12`` for ESP32/ESP32-S2/ESP32-C3, supporting Esp-idf 3.3/4.4
+
+### Breaking Changed
+- ESP32 LVGL updated to v8.0.2
+
+### Changed
+- Move firmware binaries to https://github.com/arendst/Tasmota-firmware/tree/main/release-firmware
+- Removed command ``EnergyReset`` as it is replaced by new commands
+- IRremoteESP8266 library from v2.7.18 to v2.7.20
+- NeoPixelBus library from v2.6.3 to v2.6.7
+- Message ``Upload buffer miscompare`` into ``Not enough space``
+- Command ``DisplayDimmer`` has now range 0..100 instead of 0..15
+- Speed up initial GUI console refresh
+- Enable UFILESYS, GUI_TRASH_FILE and GUI_EDIT_FILE for any device compiled with more than 1M flash size
+- Supported sensor driver range extended from 96 to 128
+- Relax NTP poll if no ntpserver can be resolved by DNS
+- Shelly EM template needs to use GPIO ``ADE7953_IRQ 2``
+- Make Sonoff L1 MusicSync persistent [#12008](https://github.com/arendst/Tasmota/issues/12008)
+- Simplified configuration for ir-full and removal of tasmota-ircustom [#12428](https://github.com/arendst/Tasmota/issues/12428)
+- Refactor platformio [#12442](https://github.com/arendst/Tasmota/issues/12442)
+- Allow buttons to work in AP normal mode [#12518](https://github.com/arendst/Tasmota/issues/12518)
+- Enable Ping and rule features for any device compiled with more than 1M flash size [#12539](https://github.com/arendst/Tasmota/issues/12539)
+- Replace spaces by hyphens in final hostname [#12710](https://github.com/arendst/Tasmota/issues/12710)
+- Default disable CORS for enhanced security and provide user compile option ``#define USE_CORS`` [#12827](https://github.com/arendst/Tasmota/issues/12827)
+- Prometheus: All metrics are prefixed with ``tasmota_`` [#12842](https://github.com/arendst/Tasmota/issues/12842)
+    Memory metrics have been cleaned up to work consistently between ESP8266 and ESP32
+    The device name is reported as an info metric
+- ESP32 core library from v1.0.6 to v1.0.7.4
+- ESP32 Ethernet Phy Type information to IDF v3+
+- ESP32 internal sensor driver id moved from 87 to 127
+- ESP32 disable PSRAM on unsupported hardware
+- ESP32 remove GPIO initialization to INPUT from not used GPIOs to allow JTAG support
+- ESP32 M5 Stack Core2 uses UNIVERSAL_DISPLAY with enabled LVGL as default now
+- ESP32 minimum PWM Frequency lowered to 2Hz [#13123](https://github.com/arendst/Tasmota/issues/13123)
+- ESP32 shrinked Webcam build, uses now `USE_TASMOTA_DISCOVERY` [#13148](https://github.com/arendst/Tasmota/issues/13148)
+
+### Fixed
+- Sonoff L1 (lite) smoother color transitions
+- DDS238-2 wrong reactive power value [#12283](https://github.com/arendst/Tasmota/issues/12283)
+- NO VALID JSON regression from may 4th [#12440](https://github.com/arendst/Tasmota/issues/12440)
+- Telegram response decoding stopped working after 20210621 and exception on long result message [#12451](https://github.com/arendst/Tasmota/issues/12451)
+- Neopool compile error on DEBUG_TASMOTA_SENSOR [#12464](https://github.com/arendst/Tasmota/issues/12464)
+- Scripter and Display MQTT errors due to MQTT_DATA move to String [#12525](https://github.com/arendst/Tasmota/issues/12525)
+- Scripter moving average and sml input validation [#12541](https://github.com/arendst/Tasmota/issues/12541)
+- Zigbee Hue angle encoding [#12545](https://github.com/arendst/Tasmota/issues/12545)
+- Exception 28 when unable to send MQTT message and a topic name without a slash '/' [#12555](https://github.com/arendst/Tasmota/issues/12555)
+- Wi-Fi initial setup workaround for 11n only routers [#12566](https://github.com/arendst/Tasmota/issues/12566)
+- Discovery fails when using ``%hostname%`` in a topic [#12710](https://github.com/arendst/Tasmota/issues/12710)
+- Neopool communication error [#12813](https://github.com/arendst/Tasmota/issues/12813)
+- Shelly Dimmer 2 Energy usage [#12815](https://github.com/arendst/Tasmota/issues/12815)
+- WDT reset on shutters with stepper motors during deceleration [#12849](https://github.com/arendst/Tasmota/issues/12849)
+- Negative power values for ADE7953 based devices like Shelly EM [#12874](https://github.com/arendst/Tasmota/issues/12874)
+- Unable to disable MusicSync mode on Sonoff L1 Lite regression from 9.3.0 [#12930](https://github.com/arendst/Tasmota/issues/12930)
+- Wiegand support for keypad zero key in single key mode using ``SetOption124 1`` [#12960](https://github.com/arendst/Tasmota/issues/12960)
+- Hass and Tasmota discovery prefix topic notifications [#12972](https://github.com/arendst/Tasmota/issues/12972)
+- OpenTherm invalid JSON [#13028](https://github.com/arendst/Tasmota/issues/13028)
+- MQTT TLS related connection timing errors [#13033](https://github.com/arendst/Tasmota/issues/13033)
+- ESP32 core v2.0.0 setting hostname
+- ESP32-C3 settings layout for configuration backup and restore
+- ESP32-Solo OTA upgrade
+- ESP32 Webcam add boundary marker before sending mjpeg image [#12376](https://github.com/arendst/Tasmota/issues/12376)
+- ESP32 Berry button handlers and error messages [#12521](https://github.com/arendst/Tasmota/issues/12521)
+- ESP32 do not use chip temperature sensor as global temperature if external temperature sensor is used [#12630](https://github.com/arendst/Tasmota/issues/12630)
+- ESP32 buzzer in PWM mode exception [#12717](https://github.com/arendst/Tasmota/issues/12717)
+- ESP32 crash when PSRAM is absent and ``BOARD_HAS_PSRAM`` set [#13037](https://github.com/arendst/Tasmota/issues/13037)
